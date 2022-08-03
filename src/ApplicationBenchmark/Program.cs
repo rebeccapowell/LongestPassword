@@ -3,5 +3,3 @@ using ApplicationBenchmark;
 using BenchmarkDotNet.Running;
 
 var useSelect = BenchmarkRunner.Run<Evaluation>();
-
-Console.ReadKey();
