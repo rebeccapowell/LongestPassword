@@ -43,7 +43,7 @@ Intel Core i7-10750H CPU 2.60GHz, 1 CPU, 12 logical and 6 physical cores
 |       UseIsLetterOrDigit |  1.862 us | 0.0368 us | 0.0882 us |    2 | 0.2308 |      - |   1,456 B |
 | UseStrictIsLetterOrDigit |  1.522 us | 0.0301 us | 0.0411 us |    1 | 0.1545 |      - |     976 B |
 
-Ding ding ding. We have a winner.
+Ding ding ding. We have a winner. N.B. The first three all use the regular expression and it is notable how much slower it is.
 
 ## Question
 
