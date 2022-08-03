@@ -11,6 +11,8 @@ namespace ApplicationBenchmark
 {
     [MemoryDiagnoser]
     [RankColumn]
+    [JsonExporterAttribute.Full]
+    [JsonExporterAttribute.FullCompressed]
     public class Evaluation
     {
         private LongestPassword _longestPassword;
