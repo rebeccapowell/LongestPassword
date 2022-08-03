@@ -18,19 +18,20 @@ namespace ApplicationBenchmark
         private string _passwords;
 
         [Benchmark]
-        public int UseSelect() => _longestPassword.SolutionSelect(_passwords);
+        public int SolutionRegexWithOrderedSelect() => _longestPassword.SolutionRegexWithOrderedSelect(_passwords);
 
         [Benchmark]
-        public int UseMax() => _longestPassword.Solution(_passwords);
+        public int SolutionRegExWithMax() => _longestPassword.SolutionRegExWithMax(_passwords);
 
         [Benchmark]
-        public int UseMaxBy() => _longestPassword.SolutionMaxBy(_passwords);
+        public int SolutionIsLetterOrDigit() => _longestPassword.SolutionIsLetterOrDigit(_passwords);
 
         [Benchmark]
-        public int UseIsLetterOrDigit() => _longestPassword.SolutionIsLetterOrDigit(_passwords);
+        public int SolutionStrictIsLetterOrDigit() => _longestPassword.SolutionStrictIsLetterOrDigit(_passwords);
 
         [Benchmark]
-        public int UseStrictIsLetterOrDigit() => _longestPassword.SolutionStrictIsLetterOrDigit(_passwords);
+        public int Solution() => _longestPassword.Solution(_passwords);
+
 
         [GlobalSetup]
         public void GlobalSetup()

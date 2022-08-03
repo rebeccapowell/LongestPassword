@@ -15,15 +15,15 @@ namespace Application
             }
 
             // split the string into valid words using rhe space character as the delimiter
-            var words = s.Split(' ').Where(x => x.IsValid()).ToList();
+            var words = s.Split(' ').Where(x => x.IsValidWithStrictRangedLetterOrDigit()).ToList();
 
             // not clear from the spec, but if N is range [1..200], should we error if it is too large?
 
             // aggregate if possible
-            return (words.Any()) ? words.Max(x => x.Length) : -1;
+            return words.UseMax();
         }
 
-        public int SolutionSelect(string s)
+        public int SolutionRegExWithMax(string s)
         {
             // reject any empty or null string
             if (string.IsNullOrWhiteSpace(s))
@@ -32,7 +32,22 @@ namespace Application
             }
 
             // split the string into valid words using rhe space character as the delimiter
-            var words = s.Split(' ').Where(x => x.IsValid());
+            var words = s.Split(' ').Where(x => x.IsValidWithRegex()).ToList();
+
+            // aggregate if possible
+            return words.UseMax();
+        }
+
+        public int SolutionRegexWithOrderedSelect(string s)
+        {
+            // reject any empty or null string
+            if (string.IsNullOrWhiteSpace(s))
+            {
+                return -1;
+            }
+
+            // split the string into valid words using rhe space character as the delimiter
+            var words = s.Split(' ').Where(x => x.IsValidWithRegex()).ToList();
 
             // if no words then return
             if (!words.Any())
@@ -40,27 +55,8 @@ namespace Application
                 return -1;
             }
 
-            // not clear from the spec, but if N is range [1..200], should we error if it is too large?
-
             // use select instead
-            return (words.Any()) ? words.Select(x => x.Length).OrderByDescending(x => x).First() : -1;
-        }
-
-        public int SolutionMaxBy(string s)
-        {
-            // reject any empty or null string
-            if (string.IsNullOrWhiteSpace(s))
-            {
-                return -1;
-            }
-
-            // split the string into valid words using rhe space character as the delimiter
-            var words = s.Split(' ').Where(x => x.IsValid()).ToList();
-
-            // not clear from the spec, but if N is range [1..200], should we error if it is too large?
-
-            // words.MaxBy(s => s.Length) in NET6 is O(N)
-            return words.Any() ? words.MaxBy(x => x.Length).First() : -1;
+            return words.UseOrderedSelect();
         }
 
         /// <summary>
@@ -80,12 +76,10 @@ namespace Application
             }
 
             // split the string into valid words using rhe space character as the delimiter
-            var words = s.Split(' ').Where(x => x.IsValidLetterOrDigit()).ToList();
+            var words = s.Split(' ').Where(x => x.IsValidWithLetterOrDigit()).ToList();
 
-            // not clear from the spec, but if N is range [1..200], should we error if it is too large?
-
-            // words.MaxBy(s => s.Length) in NET6 is O(N)
-            return words.Any() ? words.Max(x => x.Length) : -1;
+            // aggregate
+            return words.UseMax();
         }
 
         /// <summary>
@@ -102,12 +96,10 @@ namespace Application
             }
 
             // split the string into valid words using rhe space character as the delimiter
-            var words = s.Split(' ').Where(x => x.IsStrictValidLetterOrDigit()).ToList();
+            var words = s.Split(' ').Where(x => x.IsValidWithStrictRangedLetterOrDigit()).ToList();
 
-            // not clear from the spec, but if N is range [1..200], should we error if it is too large?
-
-            // words.MaxBy(s => s.Length) in NET6 is O(N)
-            return words.Any() ? words.Max(x => x.Length) : -1;
+            // aggregate
+            return words.UseMax();
         }
     }
 
@@ -120,7 +112,7 @@ namespace Application
         /// <see href="https://docs.microsoft.com/en-us/dotnet/api/system.char.isdigit"/>
         /// <see href="https://docs.microsoft.com/en-us/dotnet/api/system.char.isletter"/>
         /// <returns></returns>
-        public static bool IsValid(this string s)
+        public static bool IsValidWithRegex(this string s)
         {
             return
                 // do we have a match of the regex limiting the character set (could we have used lookaheads here)?
@@ -138,7 +130,7 @@ namespace Application
         /// <see href="https://docs.microsoft.com/en-us/dotnet/api/system.char.isdigit"/>
         /// <see href="https://docs.microsoft.com/en-us/dotnet/api/system.char.isletter"/>
         /// <returns></returns>
-        public static bool IsValidLetterOrDigit(this string s)
+        public static bool IsValidWithLetterOrDigit(this string s)
         {
             return
                 // do we have a match of the letter or digit. Warning this has unicode support and doesn't therefore match the spec.
@@ -156,7 +148,7 @@ namespace Application
         /// <see href="https://docs.microsoft.com/en-us/dotnet/api/system.char.isdigit"/>
         /// <see href="https://docs.microsoft.com/en-us/dotnet/api/system.char.isletter"/>
         /// <returns></returns>
-        public static bool IsStrictValidLetterOrDigit(this string s)
+        public static bool IsValidWithStrictRangedLetterOrDigit(this string s)
         {
             return
                 // this is stricker and matches the spec
@@ -166,5 +158,12 @@ namespace Application
                 // make sure we have an even number of letters 
                 s.Count(c => char.IsLetter(c)) % 2 == 0;
         }
+    }
+
+    public static class ListExtensions
+    {
+        public static int UseMax(this List<string> strings) => strings.Any() ? strings.Max(x => x.Length) : -1;
+
+        public static int UseOrderedSelect(this List<string> strings) => strings.Any() ? strings.Select(x => x.Length).OrderByDescending(x => x).First() : -1;
     }
 }

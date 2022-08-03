@@ -24,7 +24,6 @@ We also have another few variants relating to calculating the longest word:
 
 1. `words.Max(x => x.Length)` which is an aggregation operation
 1. `words.Select(x => x.Length).OrderByDescending(x => x).First()` to select the lengths into a new collection and then order them.
-1. `words.MaxBy(x => x.Length).First()` which is available now in NET6 and an aggreagtion 0(N), but kind of pointless in this scenario
 
 ## Benchmarks
 
@@ -35,13 +34,38 @@ Intel Core i7-10750H CPU 2.60GHz, 1 CPU, 12 logical and 6 physical cores
   DefaultJob : .NET 6.0.7 (6.0.722.32202), X64 RyuJIT
 
 
-|                   Method |      Mean |     Error |    StdDev | Rank |  Gen 0 |  Gen 1 | Allocated |
-|------------------------- |----------:|----------:|----------:|-----:|-------:|-------:|----------:|
-|                UseSelect | 13.736 us | 0.2718 us | 0.3337 us |    4 | 3.5248 | 0.0305 |  22,144 B |
-|                   UseMax | 12.451 us | 0.2434 us | 0.2158 us |    3 | 3.5095 | 0.0305 |  22,048 B |
-|                 UseMaxBy | 15.916 us | 0.7284 us | 2.1476 us |    5 | 3.5248 | 0.0305 |  22,112 B |
-|       UseIsLetterOrDigit |  1.862 us | 0.0368 us | 0.0882 us |    2 | 0.2308 |      - |   1,456 B |
-| UseStrictIsLetterOrDigit |  1.522 us | 0.0301 us | 0.0411 us |    1 | 0.1545 |      - |     976 B |
+|                         Method |      Mean |     Error |    StdDev |    Median | Rank |  Gen 0 |  Gen 1 | Allocated |
+|------------------------------- |----------:|----------:|----------:|----------:|-----:|-------:|-------:|----------:|
+| SolutionRegexWithOrderedSelect | 14.139 us | 0.2826 us | 0.5837 us | 13.978 us |    3 | 3.5248 | 0.0305 |  22,112 B |
+|           SolutionRegExWithMax | 14.116 us | 0.2799 us | 0.6317 us | 13.968 us |    3 | 3.5095 | 0.0305 |  22,112 B |
+|        SolutionIsLetterOrDigit |  2.115 us | 0.0409 us | 0.0383 us |  2.110 us |    2 | 0.2403 |      - |   1,520 B |
+|  SolutionStrictIsLetterOrDigit |  1.394 us | 0.0170 us | 0.0133 us |  1.396 us |    1 | 0.1488 |      - |     944 B |
+|                       Solution |  2.091 us | 0.0414 us | 0.1140 us |  2.053 us |    2 | 0.1678 |      - |   1,072 B |
+
+// * Hints *
+Outliers
+  Evaluation.SolutionRegexWithOrderedSelect: Default -> 1 outlier  was  removed (22.30 us)
+  Evaluation.SolutionIsLetterOrDigit: Default        -> 1 outlier  was  removed (2.28 us)
+  Evaluation.SolutionStrictIsLetterOrDigit: Default  -> 3 outliers were removed (1.45 us..1.54 us)
+  Evaluation.Solution: Default                       -> 2 outliers were removed (2.45 us, 2.48 us)
+
+// * Legends *
+  Mean      : Arithmetic mean of all measurements
+  Error     : Half of 99.9% confidence interval
+  StdDev    : Standard deviation of all measurements
+  Median    : Value separating the higher half of all measurements (50th percentile)
+  Rank      : Relative position of current benchmark mean among all benchmarks (Arabic style)
+  Gen 0     : GC Generation 0 collects per 1000 operations
+  Gen 1     : GC Generation 1 collects per 1000 operations
+  Allocated : Allocated memory per single operation (managed only, inclusive, 1KB = 1024B)
+  1 us      : 1 Microsecond (0.000001 sec)
+
+// * Diagnostic Output - MemoryDiagnoser *
+
+
+// ***** BenchmarkRunner: End *****
+// ** Remained 0 benchmark(s) to run **
+Run time: 00:03:09 (189.14 sec), executed benchmarks: 5
 
 Ding ding ding. We have a winner. N.B. The first three all use the regular expression and it is notable how much slower it is.
 
