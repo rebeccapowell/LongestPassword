@@ -72,69 +72,36 @@ For example, given S = "test 5 a0A pass007 ?xy1", your function should return 7,
 
 In your solution, focus on correctness. The performance of your solution will not be the focus of the assessment.
 
-## Solutions
+## Fastest Solution
 
-### Solution 1
-
-* C++
+* C#
 ```
-#include <algorithm>
-#include <sstream>
-#include <cstring>
-#include <vector>
-vector<string> getWords(string S)
+public int Solution(string s)
 {
-    stringstream ss(S);
-    vector<string> res;
-    string token;
-    while(getline(ss, token, ' '))
-        res.push_back(token);
-    return res;
-}
-
-int check(string word)
-{
-    int alp=0, digit=0;
-    for(char w : word)
+    // reject any empty or null string
+    if (string.IsNullOrWhiteSpace(s))
     {
-        if(isalpha(w)) alp++;
-        else if(isdigit(w)) digit++;
-        else return 0;
+        return -1;
     }
-    return (alp%2==0 && digit%2!=0) ? alp+digit : 0;
+
+    // split the string into valid words using rhe space character as the delimiter
+    var words = s.Split(' ').Where(x => x.IsStrictValidLetterOrDigit()).ToList();
+
+    // not clear from the spec, but if N is range [1..200], should we error if it is too large?
+
+    // aggregate if possible
+    return (words.Any()) ? words.Max(x => x.Length) : -1;
 }
 
-int solution(string &S) {
-    // write your code in C++14 (g++ 6.2.0)
-    vector<string> words = getWords(S);
-    int res = 0;
-    for(string word : words)
-        res = max(res, check(word));
-    return res==0 ? -1 : res;
-}
-```
-
-* C++
-```
-int check(string word)
+public static bool IsStrictValidLetterOrDigit(this string s)
 {
-    int alp=0, digit=0;
-    for(char w : word)
-    {
-        if(isalpha(w)) alp++;
-        else if(isdigit(w)) digit++;
-        else return -1;
-    }
-    return (alp%2==0 && digit%2!=0) ? alp+digit : -1;
-}
-
-int solution(string &S) {
-    // write your code in C++14 (g++ 6.2.0)
-    vector<string> words = getWords(S);
-    int res = -1;
-    for(string word : words)
-        res = max(res, check(word));
-    return res;
+    return
+        // this is stricker and matches the spec
+        s.All(c => (c >= 48 && c <= 57 || c >= 65 && c <= 90 || c >= 97 && c <= 122)) &&
+        // make sure we have an odd number of digits (note IsDigit is radix-10 digit) IsNumber is any unicode number
+        s.Count(c => char.IsDigit(c)) % 2 != 0 &&
+        // make sure we have an even number of letters 
+        s.Count(c => char.IsLetter(c)) % 2 == 0;
 }
 ```
 
