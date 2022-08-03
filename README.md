@@ -84,7 +84,7 @@ public int Solution(string s)
         return -1;
     }
 
-    // split the string into valid words using rhe space character as the delimiter
+    // split the string into valid words using the space character as the delimiter
     var words = s.Split(' ').Where(x => x.IsStrictValidLetterOrDigit()).ToList();
 
     // not clear from the spec, but if N is range [1..200], should we error if it is too large?
@@ -96,7 +96,7 @@ public int Solution(string s)
 public static bool IsStrictValidLetterOrDigit(this string s)
 {
     return
-        // this is stricker and matches the spec
+        // this is strict and matches the spec
         s.All(c => (c >= 48 && c <= 57 || c >= 65 && c <= 90 || c >= 97 && c <= 122)) &&
         // make sure we have an odd number of digits (note IsDigit is radix-10 digit) IsNumber is any unicode number
         s.Count(c => char.IsDigit(c)) % 2 != 0 &&
