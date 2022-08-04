@@ -1,5 +1,7 @@
 # Longest Password
 
+![Build status]https://github.com/rebeccapowell/LongestPassword/actions/workflows/dotnet-core.yml/badge.svg
+
 ## Notes
 
 I was recently given this as an example question for a interview coding test. I found it fun, but wanted to revist it in Visual Studio intead of via a poor online editor / compiler / intellisense.
