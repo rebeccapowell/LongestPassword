@@ -6,6 +6,8 @@ I was recently given this as an example question for a interview coding test. I 
 
 Since there were a couple of ways to do this, I felt like I wanted to add some benchmarking it as well using [BenchmarkDotnet's](https://github.com/dotnet/BenchmarkDotNet) excellent tools.'
 
+Skip straight to the [benchmark results](https://rebeccapowell.github.io/LongestPassword/dev/bench/index.html). N.B. These are running as part of the GitHub Actions build pipeline, so it's very resource dependent. You'll get better consistent results locally.
+
 ## Possible Implementations
 
 Checking whether we have a number of digits or a number of letters is relatively simple, suing `char.IsDigit(char)` and `char.IsLetter(char)`. You then have to just count them.
@@ -98,8 +100,9 @@ In your solution, focus on correctness. The performance of your solution will no
 
 ## Fastest Solution
 
-* C#
-```
+### C#
+
+```csharp
 public int Solution(string s)
 {
     // reject any empty or null string
