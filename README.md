@@ -67,7 +67,7 @@ Outliers
 // ** Remained 0 benchmark(s) to run **
 Run time: 00:03:09 (189.14 sec), executed benchmarks: 5
 
-Ding ding ding. We have a winner. N.B. The first three all use the regular expression and it is notable how much slower it is.
+Ding ding ding. We have a winner. N.B. The first three all use the regular expression and it is notable how much slower it is. Done.
 
 ## Question
 
