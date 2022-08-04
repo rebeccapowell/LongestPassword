@@ -69,6 +69,8 @@ Run time: 00:03:09 (189.14 sec), executed benchmarks: 5
 
 Ding ding ding. We have a winner. N.B. The first three all use the regular expression and it is notable how much slower it is.
 
+Results can be found [here](https://rebeccapowell.github.io/LongestPassword/dev/bench/index.html)
+
 ## Question
 
 You would like to set a password for a bank account. However, there are three restrictions on the format of the password:
