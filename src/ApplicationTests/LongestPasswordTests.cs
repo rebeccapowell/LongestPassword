@@ -25,7 +25,7 @@ namespace ApplicationTests
         public void GivenListOfPasswordsWhenRegexThenEvaluateAssertion(string s, int assert)
         {
             var sut = new LongestPassword();
-            var result = sut.SolutionRegExWithMax(s);
+            var result = sut.SolutionRegexWithMax(s);
 
             Assert.AreEqual(assert, result);
         }

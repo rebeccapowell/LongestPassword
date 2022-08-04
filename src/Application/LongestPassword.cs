@@ -23,7 +23,7 @@ namespace Application
             return words.UseMax();
         }
 
-        public int SolutionRegExWithMax(string s)
+        public int SolutionRegexWithMax(string s)
         {
             // reject any empty or null string
             if (string.IsNullOrWhiteSpace(s))

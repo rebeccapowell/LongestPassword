@@ -23,7 +23,7 @@ namespace ApplicationBenchmark
         public int SolutionRegexWithOrderedSelect() => _longestPassword.SolutionRegexWithOrderedSelect(_passwords);
 
         [Benchmark]
-        public int SolutionRegExWithMax() => _longestPassword.SolutionRegExWithMax(_passwords);
+        public int SolutionRegExWithMax() => _longestPassword.SolutionRegexWithMax(_passwords);
 
         [Benchmark]
         public int SolutionIsLetterOrDigit() => _longestPassword.SolutionIsLetterOrDigit(_passwords);
