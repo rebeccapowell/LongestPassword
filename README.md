@@ -1,6 +1,6 @@
 # Longest Password
 
-![Build status]https://github.com/rebeccapowell/LongestPassword/actions/workflows/dotnet-core.yml/badge.svg
+![Build status](https://github.com/rebeccapowell/LongestPassword/actions/workflows/dotnet-core.yml/badge.svg)
 
 ## Notes
 
