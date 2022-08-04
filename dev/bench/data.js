@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1659574972678,
+  "lastUpdate": 1659575116041,
   "repoUrl": "https://github.com/rebeccapowell/LongestPassword",
   "entries": {
     "Benchmark.Net Benchmark": [
@@ -264,6 +264,60 @@ window.BENCHMARK_DATA = {
             "value": 2200.4923941668344,
             "unit": "ns",
             "range": "± 42.021034032013006"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "586841+rebeccapowell@users.noreply.github.com",
+            "name": "Rebecca Powell",
+            "username": "rebeccapowell"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "1814f1cd3a9e88548b52ea1fa97774f2d28f8508",
+          "message": "Update README.md",
+          "timestamp": "2022-08-04T02:59:41+02:00",
+          "tree_id": "4c745353637871f689a29a88beba7e5dba7575a6",
+          "url": "https://github.com/rebeccapowell/LongestPassword/commit/1814f1cd3a9e88548b52ea1fa97774f2d28f8508"
+        },
+        "date": 1659575115605,
+        "tool": "benchmarkdotnet",
+        "benches": [
+          {
+            "name": "ApplicationBenchmark.Evaluation.SolutionRegexWithOrderedSelect",
+            "value": 20278.371931152345,
+            "unit": "ns",
+            "range": "± 1309.2730687699532"
+          },
+          {
+            "name": "ApplicationBenchmark.Evaluation.SolutionRegExWithMax",
+            "value": 20179.170287649973,
+            "unit": "ns",
+            "range": "± 921.3188768528221"
+          },
+          {
+            "name": "ApplicationBenchmark.Evaluation.SolutionIsLetterOrDigit",
+            "value": 2561.933099226518,
+            "unit": "ns",
+            "range": "± 129.8872827689283"
+          },
+          {
+            "name": "ApplicationBenchmark.Evaluation.SolutionStrictIsLetterOrDigit",
+            "value": 2329.716929396538,
+            "unit": "ns",
+            "range": "± 113.44812257733516"
+          },
+          {
+            "name": "ApplicationBenchmark.Evaluation.Solution",
+            "value": 2138.470334788731,
+            "unit": "ns",
+            "range": "± 104.00380439410567"
           }
         ]
       }
