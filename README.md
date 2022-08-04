@@ -100,8 +100,8 @@ In your solution, focus on correctness. The performance of your solution will no
 
 ## Fastest Solution
 
-* C#
-```
+### C#
+```csharp
 public int Solution(string s)
 {
     // reject any empty or null string
